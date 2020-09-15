@@ -1,4 +1,4 @@
-# AQA-2-2 [![Build status](https://ci.appveyor.com/api/projects/status/6x3tvm60e6ihubai?svg=true)](https://ci.appveyor.com/project/Volgogradec/aqa-2-1)
+# AQA-2-2 [![Build status](https://ci.appveyor.com/api/projects/status/8jtvf7t31csvm4d6?svg=true)](https://ci.appveyor.com/project/Volgogradec/aqa-2-2)
 2.2. Selenide
 
 ## Задача №1 - Заказ доставки карты
