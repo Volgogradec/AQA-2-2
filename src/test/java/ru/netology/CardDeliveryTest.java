@@ -2,44 +2,47 @@ package ru.netology;
 
 import org.junit.jupiter.api.Test;
 import com.codeborne.selenide.SelenideElement;
+
+import java.text.SimpleDateFormat;
+import java.text.*;
+import java.util.Calendar;
+import java.util.Date;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CardDeliveryTest {
-//    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+
+    String meetingDay(int day){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, day); // увеличиваем дату на <day> дней
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        Date meetingDay = calendar.getTime();
+        return String.valueOf(dateFormat.format(meetingDay));
+    }
 
     @Test
     void testPositiveAllInput() {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").setValue("18.09.2020");
+        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").setValue(meetingDay(5));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        $("[data-test-id='notification']").waitUntil(visible, 14000);
-    }
-
-    @Test
-    void testPositiveDateEmpty(){
-        open("http://localhost:9999/");
-        SelenideElement form = $("[action='/']");
-        form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
-        form.$("[data-test-id='phone'] input").setValue("+79642682654");
-        form.$("[data-test-id='agreement']").click();
-        form.$(".button__content").click();
-        $("[data-test-id='notification']").waitUntil(visible, 14000);
+        $("[data-test-id='notification']").waitUntil(visible, 15000);
     }
 
     @Test
     void testNegativeCityEmpty(){
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
-        form.$("[data-test-id='date'] input").setValue("18.09.2020");
+        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").setValue(meetingDay(3));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
@@ -49,11 +52,56 @@ public class CardDeliveryTest {
     }
 
     @Test
+    void testNegativeCityNotValid(){
+        open("http://localhost:9999/");
+        SelenideElement form = $("[action='/']");
+        form.$("[data-test-id='city'] input").setValue("Волгоград1");
+        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").setValue(meetingDay(3));
+        form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
+        form.$("[data-test-id='phone'] input").setValue("+79642682654");
+        form.$("[data-test-id='agreement']").click();
+        form.$(".button__content").click();
+        String text = form.$("[data-test-id='city'] .input__sub").getText();
+        assertEquals("Доставка в выбранный город недоступна", text.trim());
+    }
+
+    @Test
+    void testNegativeDateEmpty(){
+        open("http://localhost:9999/");
+        SelenideElement form = $("[action='/']");
+        form.$("[data-test-id='city'] input").setValue("Волгоград");
+        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
+        form.$("[data-test-id='phone'] input").setValue("+79642682654");
+        form.$("[data-test-id='agreement']").click();
+        form.$(".button__content").click();
+        String text = form.$("[data-test-id='date'] .input__sub").getText();
+        assertEquals("Неверно введена дата", text.trim());
+    }
+
+    @Test
+    void testNegativeDateLess3day(){
+        open("http://localhost:9999/");
+        SelenideElement form = $("[action='/']");
+        form.$("[data-test-id='city'] input").setValue("Волгоград");
+        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").setValue(meetingDay(2));
+        form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
+        form.$("[data-test-id='phone'] input").setValue("+79642682654");
+        form.$("[data-test-id='agreement']").click();
+        form.$(".button__content").click();
+        String text = form.$("[data-test-id='date'] .input__sub").getText();
+        assertEquals("Заказ на выбранную дату невозможен", text.trim());
+    }
+
+    @Test
     void testNegativeNameEmpty(){
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").setValue("18.09.2020");
+        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").setValue(meetingDay(3));
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
@@ -66,7 +114,8 @@ public class CardDeliveryTest {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").setValue("18.09.2020");
+        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").setValue(meetingDay(7));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
@@ -79,7 +128,8 @@ public class CardDeliveryTest {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").setValue("18.09.2020");
+        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").setValue(meetingDay(3));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$(".button__content").click();
