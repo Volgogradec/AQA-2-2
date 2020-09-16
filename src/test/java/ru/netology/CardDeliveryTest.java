@@ -42,8 +42,7 @@ public class CardDeliveryTest {
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        String text = form.$("[data-test-id='city'] .input__sub").getText();
-        assertEquals("Поле обязательно для заполнения", text.trim());
+        form.$("[data-test-id='city'].input_invalid .input__sub").shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
     }
 
     @Test
@@ -57,8 +56,7 @@ public class CardDeliveryTest {
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        String text = form.$("[data-test-id='city'] .input__sub").getText();
-        assertEquals("Доставка в выбранный город недоступна", text.trim());
+        form.$("[data-test-id='city'] .input__sub").shouldBe(visible).shouldHave(text("Доставка в выбранный город недоступна"));
     }
 
     @Test
@@ -71,8 +69,7 @@ public class CardDeliveryTest {
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        String text = form.$("[data-test-id='date'] .input__sub").getText();
-        assertEquals("Неверно введена дата", text.trim());
+        form.$("[data-test-id='date'] .input__sub").shouldBe(visible).shouldHave(text("Неверно введена дата"));
     }
 
     @Test
@@ -86,8 +83,7 @@ public class CardDeliveryTest {
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        String text = form.$("[data-test-id='date'] .input__sub").getText();
-        assertEquals("Заказ на выбранную дату невозможен", text.trim());
+        form.$("[data-test-id='date'] .input__sub").shouldBe(visible).shouldHave(text("Заказ на выбранную дату невозможен"));
     }
 
     @Test
@@ -100,8 +96,7 @@ public class CardDeliveryTest {
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        String text = form.$("[data-test-id='name'] .input__sub").getText();
-        assertEquals("Поле обязательно для заполнения", text.trim());
+        form.$("[data-test-id='name'] .input__sub").shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
     }
 
     @Test
@@ -114,8 +109,7 @@ public class CardDeliveryTest {
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        String text = form.$("[data-test-id='phone'] .input__sub").getText();
-        assertEquals("Поле обязательно для заполнения", text.trim());
+        form.$("[data-test-id='phone'] .input__sub").shouldBe(visible).shouldHave(text("Поле обязательно для заполнения"));
     }
 
     @Test
@@ -128,7 +122,6 @@ public class CardDeliveryTest {
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$(".button__content").click();
-        String text = form.$("[data-test-id='agreement'].input_invalid").getText();
-        assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных", text.trim());
+        form.$("[data-test-id='agreement'].input_invalid").shouldBe(visible).shouldHave(text("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
     }
 }
