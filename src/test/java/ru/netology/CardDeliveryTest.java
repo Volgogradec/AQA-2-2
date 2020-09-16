@@ -29,7 +29,7 @@ public class CardDeliveryTest {
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
         form.$(".button__content").click();
-        $("[data-test-id='notification']").waitUntil(visible, 15000);
+        $("[data-test-id='notification']").waitUntil(visible, 15000).shouldHave(text(meetingDay(5)));
     }
 
     @Test
