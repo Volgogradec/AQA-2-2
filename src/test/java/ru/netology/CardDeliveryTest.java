@@ -2,6 +2,7 @@ package ru.netology;
 
 import org.junit.jupiter.api.Test;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +23,7 @@ public class CardDeliveryTest {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         form.$("[data-test-id='date'] input").setValue(meetingDay(5));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
@@ -35,7 +36,7 @@ public class CardDeliveryTest {
     void testNegativeCityEmpty(){
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
-        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         form.$("[data-test-id='date'] input").setValue(meetingDay(3));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
@@ -50,7 +51,7 @@ public class CardDeliveryTest {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград1");
-        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         form.$("[data-test-id='date'] input").setValue(meetingDay(3));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
@@ -65,7 +66,7 @@ public class CardDeliveryTest {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
@@ -79,7 +80,7 @@ public class CardDeliveryTest {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         form.$("[data-test-id='date'] input").setValue(meetingDay(2));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
@@ -94,7 +95,7 @@ public class CardDeliveryTest {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         form.$("[data-test-id='date'] input").setValue(meetingDay(3));
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
         form.$("[data-test-id='agreement']").click();
@@ -108,7 +109,7 @@ public class CardDeliveryTest {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         form.$("[data-test-id='date'] input").setValue(meetingDay(7));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='agreement']").click();
@@ -122,7 +123,7 @@ public class CardDeliveryTest {
         open("http://localhost:9999/");
         SelenideElement form = $("[action='/']");
         form.$("[data-test-id='city'] input").setValue("Волгоград");
-        form.$("[data-test-id='date'] input").sendKeys("\b\b\b\b\b\b\b\b\b\b");
+        form.$("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         form.$("[data-test-id='date'] input").setValue(meetingDay(3));
         form.$("[data-test-id='name'] input").setValue("Дмитрий Евдокимов");
         form.$("[data-test-id='phone'] input").setValue("+79642682654");
