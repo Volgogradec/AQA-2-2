@@ -3,10 +3,8 @@ package ru.netology;
 import org.junit.jupiter.api.Test;
 import com.codeborne.selenide.SelenideElement;
 
-import java.text.SimpleDateFormat;
-import java.text.*;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -16,11 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CardDeliveryTest {
 
     String meetingDay(int day){
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, day); // увеличиваем дату на <day> дней
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        Date meetingDay = calendar.getTime();
-        return String.valueOf(dateFormat.format(meetingDay));
+        return LocalDate.now().plusDays(day).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     @Test
